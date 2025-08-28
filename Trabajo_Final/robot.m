@@ -10,7 +10,7 @@ dh = [
     0.000  0.000  0.000  -pi/2 0;
     0.000  0.185  0.000  0.000 0];
 
-R = SerialLink(dh,'name','KUKA KR 30 2100');
+R = SerialLink(dh,'name','KUKA KR 50 2100');
 q = [0,0,0,0,0,0];
 
 % Límites de cada articulación
