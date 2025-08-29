@@ -1,4 +1,4 @@
-% Robot de 3 articulaciones: traslación, rotación, rotación (Craig 2006). 
+% SCARA IRB 910SC
 
 clc, clear, close all;
 
@@ -12,10 +12,10 @@ Rob4 = SerialLink(dh,'name','Scada');
 q = [0,0,0,0];
 
 % Límites de cada articulación
-Rob4.qlim(1,1:2) = [-pi,  pi];
-Rob4.qlim(2,1:2) = [-pi,  pi];
-Rob4.qlim(3,1:2) = [-180, 180]*pi/180;
-Rob4.qlim(4,1:2) = [0, 0.18];
+Rob4.qlim(1,1:2) = [-140,  140]*pi/180;
+Rob4.qlim(2,1:2) = [-150,  150]*pi/180;
+Rob4.qlim(3,1:2) = [-400, 400]*pi/180;
+Rob4.qlim(4,1:2) = [0.04, 0.22];
 
 
 % offset
