@@ -30,7 +30,7 @@ R.offset = [0 -pi/2 0 0 0 0 ];
 % Es una matriz homogénea que representa la transformación del sistema de coordenadas global 
 % al sistema de coordenadas de la base del robot.
 % Por ahora asumimos uno genérico
-R.base = transl(-0.5,0.05,0) * trotz(pi/2);
+R.base = transl(-0.5,0.05,0);
 
 % tool
 % Es una matriz homogénea, pero describe la transformación desde la última articulación
@@ -38,4 +38,4 @@ R.base = transl(-0.5,0.05,0) * trotz(pi/2);
 R.tool = transl(0.15, 0, 0);
 
 % [-limX, +limX, -limY, +limY, -limZ, +limZ]
-workspace = [-3, 3, -3, 3, -0.2, 3];
+workspace = [-3, 3, -3, 3, 0, 3];
