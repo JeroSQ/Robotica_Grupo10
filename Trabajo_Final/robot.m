@@ -1,6 +1,5 @@
 % robot.m para el trabajo final
 % ROBOT KUKA KR 30 R2100
-clc, clear, close all;
 
 dh = [
     0.000  0.575  0.175  -pi/2 0;
@@ -24,7 +23,7 @@ R.qlim(6,1:2) = [-350,  350]*pi/180;
 % offset
 % Es un desplazamiento angular o lineal inicial aplicado a cada articulación.
 % Útil cuando la referencia física de la articulación no coincide con el cero matemático del modelo.
-R.offset = [0 -pi/2 0 0 0 0 ];
+R.offset = [0 0 -pi/2 0 0 0 ];
 
 % base
 % Es una matriz homogénea que representa la transformación del sistema de coordenadas global 
@@ -38,4 +37,4 @@ R.base = transl(-0.5,0.05,0);
 R.tool = transl(0.15, 0, 0);
 
 % [-limX, +limX, -limY, +limY, -limZ, +limZ]
-workspace = [-3, 3, -3, 3, 0, 3];
+workspace = [-3, 3, -3, 3, -2, 3];
