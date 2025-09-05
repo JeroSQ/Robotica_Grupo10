@@ -30,10 +30,10 @@ for i=1:numel(Q)
 
         A_manual = devolverMatriz(fila);
         T_manual = T_manual * A_manual;
-       % fprintf('  Articulación %d: ||A_toolbox - A_manual|| = %.0e\n', j, norm(A_toolbox - A_manual));
+        fprintf('  Articulación %d: ||A_toolbox - A_manual|| = %.0e\n', j, norm(A_toolbox - A_manual));
     end
     T_manual = T_manual
-   % T_toolbox = T_toolbox
+    T_toolbox = T_toolbox
 end
 
 
