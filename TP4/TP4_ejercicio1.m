@@ -1,3 +1,4 @@
+%% 
 clc; clear;
 %Matriz dh del Paint Mate 200iA (FANUC)
 dh = [
