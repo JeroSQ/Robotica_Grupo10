@@ -5,13 +5,13 @@ clc, clear,close all,
 
 
 dh = [ ...
-    0     1   0    pi/2;   % 1: q1
-    0     0    1   0;      % 2: q2
-    0     0    1   -pi/2;      % 3: q3
-    0     0    1   pi/2;   % 4: q4
-    0     0    0   -pi/2;   % 5: q5
-    0     1   0    0];     % 6: q6
-
+    0      1     0      pi/2;   % 1: base (z2 ⟂ z1)
+    0      0      1     0;      % 2: brazo   (z3 ‖ z2)
+    0      0      1     0;      % 3: antebrazo; x3 es a lo largo del eslabón
+    0      0      0      pi/2;   % 4: ***z4 || x3***  (roll de la muñeca)
+    0      0      0     -pi/2;   % 5: pitch
+    0      1     0      0];     % 6: yaw + offset herramienta
+% -------------------------------------------------------
 
 
 
