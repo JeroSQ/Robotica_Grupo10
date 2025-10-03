@@ -18,8 +18,6 @@ dh = [ ...
 
 % Crear el objeto SerialLink
 R = SerialLink(dh, 'name', 'Robot6GDL_unitario');
-% Mostrar información básica
-disp(R);
 
 % Graficar con una postura ejemplo
 q = [0 40 -30  20 15 0]*pi/180;
