@@ -104,8 +104,8 @@ T1 = R.links(1).A(q1).double;
 T2 = T1 * R.links(2).A(q2).double;
 p = invHomog(T2) * [p; 1]; % p respecto de {2}
 
-q3aux = atan2(p(2), p(1));
-q3= q3aux-atan2(R.links(4).d,R.links(3).a);
+q3aux = atan2(p(2), p(1)) - pi/2;
+q3= q3aux-atan2(R.links(43).d,R.links(3).a);
 end
 
 %=========================================================================%
