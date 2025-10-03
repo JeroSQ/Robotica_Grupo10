@@ -1,0 +1,24 @@
+% Ejercicio 6 - Robot genérico 6GDL con longitudes unitarias
+% Definición de la tabla DH: [theta d a alpha sigma]
+% sigma=0 -> articulación revoluta
+clc, clear,close all,
+
+
+dh = [
+    0     1     0     -pi/2   0;   % Joint 1
+    0     0     1      0      0;   % Joint 2
+    0     0     1     pi/2   0;   % Joint 3
+    0     1     1     -pi/2   0;   % Joint 4
+    0     0     0     pi/2   0;   % Joint 5
+    0     1     0      0      0    % Joint 6 (d6 = 1)
+];
+
+
+% Crear el objeto SerialLink
+R = SerialLink(dh, 'name', 'Robot6GDL_unitario');
+% Mostrar información básica
+disp(R);
+
+% Graficar con una postura ejemplo
+q = [30 -45 60 20 -30 45]*pi/180;
+figure; R.plot(q);
