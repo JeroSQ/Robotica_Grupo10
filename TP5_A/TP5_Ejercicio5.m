@@ -48,7 +48,7 @@ R.qlim(3,1:2) = [-180, 180]*pi/180;
 end
 
 function qsol = Cinem_inv(a1,a2,a3,dh,x,y,g)
-    qsol=zeros(2,3); % Vector articular: hasta 2 soluciones
+    qsol=zeros(2,3); 
 
     % Posición del sistema 2 respecto de la base
     x2 = x - a3*cos(g);
@@ -65,7 +65,6 @@ function qsol = Cinem_inv(a1,a2,a3,dh,x,y,g)
     % Cálculo de q2
     for i=1:2
         T1 = Transf_Sistemas(dh(1,:),qsol(i,1));
-        %P2_1 = inv(T1)*[x2;y2;0;1];
         P2_1 = T1 \ [x2;y2;0;1];
         qsol(i,2) = atan2(P2_1(2),P2_1(1));
     end
@@ -74,7 +73,6 @@ function qsol = Cinem_inv(a1,a2,a3,dh,x,y,g)
     for i=1:2
         T1 = Transf_Sistemas(dh(1,:),qsol(i,1));
         T2 = T1 * Transf_Sistemas(dh(2,:),qsol(i,2));
-        %P3_2 = inv(T2)*[x;y;0;1];
         P3_2 = T2 \ [x;y;0;1];
         qsol(i,3) = atan2(P3_2(2),P3_2(1));
     end
