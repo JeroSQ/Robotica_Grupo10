@@ -23,7 +23,7 @@ R.qlim(6,1:2) = [-350,  350]*pi/180;
 % offset
 % Es un desplazamiento angular o lineal inicial aplicado a cada articulación.
 % Útil cuando la referencia física de la articulación no coincide con el cero matemático del modelo.
-R.offset = [0 0 -pi/2 0 0 0 ];
+R.offset = [0 0 0 0 0 0 ];
 
 % base
 % Es una matriz homogénea que representa la transformación del sistema de coordenadas global 
