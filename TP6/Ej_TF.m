@@ -55,7 +55,7 @@ Dfun = matlabFunction(D, 'Vars', {[q1 q2 q3 q4 q5 q6]});
 qnom = zeros(1,6);
 qnom(5) = pi/2; % para que no se me anule sin(q5)
 
-step = 300;
+step = 3000;
 q2_vec = linspace(R.qlim(2,1), R.qlim(2,2), step);
 q3_vec = linspace(R.qlim(3,1), R.qlim(3,2), step);
 
@@ -83,3 +83,19 @@ end
 disp('Calculo el det para el primer punto para chequear:');
 j = R.jacob0([0 parejas(1, 1) parejas(1,2) 0 pi/2 0])
 d = det(j)
+
+n = size(parejas,1);
+xyz = zeros(n,3);
+
+for i = 1:n
+    q = [0 parejas(i,1) parejas(i,2) 0 pi/2 0]; % tu formato
+    T = R.fkine(q);
+    xyz(i,:) = transl(T); % extrae coordenadas (x, y, z)
+end
+
+figure;
+R.teach([0,0,0,0,0,0])
+hold on;
+plot3(xyz(:,1), xyz(:,2), xyz(:,3), 'o');
+xlabel('X [m]'); ylabel('Y [m]'); zlabel('Z [m]');
+grid on; axis equal;
