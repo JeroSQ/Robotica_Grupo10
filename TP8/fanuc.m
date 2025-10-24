@@ -1,4 +1,4 @@
-clc, clear, close all
+%clc, clear, close all
 %Matriz dh del Paint Mate 200iA (FANUC)
 dh = [
     0.000  0.450  0.075  -pi/2 0.000;

@@ -24,9 +24,9 @@ q2 = R.ikine(T2, qq);
 % Se observa que llega al punto final, pero que no sigue una línea recta,
 % si no que sube un poco en el eje y y luego baja
 R.plot(q, 'fps', 100, 'view', [pi/2 0]);
-figure;
 
 % No se especifica un tiempo asi que en el eje de abscisas se muestran los
 % pasos
-qplot(q)
+figure;
+qplot(q);
 grid on;
