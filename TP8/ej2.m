@@ -16,8 +16,8 @@ T1(4,:) = [0,0,0,1];
 T2 = T1;
 T2(1:3,4) = P2;
 
-q1 = R.ikine(T1);
-q2 = R.ikine(T2);
+q1 = R.ikine(T1, qq);
+q2 = R.ikine(T2, qq);
 
 [q, qd, qdd] = jtraj(q1, q2, 100);
 
