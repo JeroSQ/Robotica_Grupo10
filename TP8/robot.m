@@ -1,5 +1,5 @@
 % robot.m para el trabajo final
-% ROBOT KUKA KR 30 R2100
+% ROBOT KUKA KR 50 R2100
 
 dh = [
     0.000  0.575  0.175  -pi/2 0;
@@ -34,7 +34,7 @@ R.base = transl(-0.5,0.0,0);
 % tool
 % Es una matriz homogénea, pero describe la transformación desde la última articulación
 % hasta el effector. Asumimos uno genérico
-R.tool = transl(0.15, 0, 0);
+R.tool = transl(0, 0, 0.15);
 
 % [-limX, +limX, -limY, +limY, -limZ, +limZ]
 workspace = [-3, 3, -3, 3, -2, 3];
