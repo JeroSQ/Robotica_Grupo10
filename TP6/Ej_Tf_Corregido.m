@@ -37,7 +37,6 @@ J0_sym = simplify(J0_sym);
 disp('J=');disp(J0_sym)
 
 disp('Calculando Determinante (~50 segundos)...');
-disp('Ver de 1 a 3 reels mientras se calcula o no funciona');
 D = simplify(det(J0_sym));                        
 factores = factor(D);               
 terms = arrayfun(@char, factores, 'UniformOutput', false);
@@ -106,7 +105,7 @@ Taux=R.fkine(qnom).double;
 xyz(3,:)=Taux(1:3,4)';
 
 figure;
-R.teach([0,0,0,0,0,0])
+R.teach([0,0,0,0,0,0],'view',[pi/2,0])
 hold on;
 plot3(xyz(:,1), xyz(:,2), xyz(:,3), '*r');
 xlabel('X [m]'); ylabel('Y [m]'); zlabel('Z [m]');
