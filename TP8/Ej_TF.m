@@ -1,4 +1,4 @@
-clc; clear;
+clc; clear; close all;
 
 global R X_F1_IDEAL Y_F1_IDEAL Z_F1_LEVANTADO DIAMETRO_RUEDA T_rueda_local;
 
@@ -86,16 +86,28 @@ function T_FL = moverModelo(~, event, tform)
         T_FL = M * T_rueda_local * trotx(pi/2);
         T_FL(3,4) = DIAMETRO_RUEDA/2 + Z_F1_LEVANTADO; % Z no cambia
         
-        % Matriz de t. homog. a 40 cm del centro de la rueda perpendicular
-        % al F1. 
-        T_FL_40cm = T_FL;
-        T_FL_40cm(1:3,4) = T_FL(1:3,4) - T_FL(1:3,3) * 0.4;
+
 
         % --- Generación de trayectorias ---
         
+
+
         % por ahora solo muevo el robot al punto 3
-        R.plot(R.ikine(T_FL_40cm));
-        rotate3d off; pan off; zoom off;
+      %  R.plot(R.ikine(T_FL_40cm));
+      [q, qd, qdd] = generar_trayectoria_a(T_FL, R);
+        R.plot(q, 'fps', 244);
+    
+        % No se especifica un tiempo asi que en el eje de abscisas se muestran los pasos
+        figure;
+        qplot(q);
+        grid on;
+        figure;
+        qplot(qd);
+        grid on;
+        figure;
+        qplot(qdd);
+        grid on;
+         rotate3d off; pan off; zoom off;
         
         
     % Si se presiona la tecla 'a', se anima el auto llegando al box
@@ -126,3 +138,5 @@ function T_FL = moverModelo(~, event, tform)
         end
     end
 end
+
+
