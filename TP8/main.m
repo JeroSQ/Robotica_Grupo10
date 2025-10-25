@@ -42,7 +42,7 @@ end
 
 R.plot(q1, 'fps', 244);
 
-T_rueda=Graficar(0);
+T_rueda=Graficar(1);
 
 
 T_FL_40cm = T_rueda;
