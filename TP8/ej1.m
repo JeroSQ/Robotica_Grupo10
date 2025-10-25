@@ -13,7 +13,7 @@ trayectoria
 % de paso que hemos usado, pero si fuese distinto, habría que especificarlo
 % con el parámetro fps
 % R.plot(trayectoria, 'fps', 10);
-R.plot(trayectoria);
+R.plot(trayectoria, 'fps', 50,'trail', 'b', 'view', [45 20]);
 
 figure; 
 qplot(t, trayectoria); 
