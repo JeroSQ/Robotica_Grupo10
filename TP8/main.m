@@ -1,7 +1,7 @@
 clc; clear; close all;
 robot;
-disp("Cartesiana=0")
-disp("Articular=1")
+disp("Articular=0")
+disp("Cartesiana=1")
 opcion=input("Ingrese opcion: ");
 %%Trayectoria1%%
 qq=[0,-pi/2,0,0,pi/2,0];
@@ -34,7 +34,7 @@ T5(1:3,4) = P5;
 T5(1:3, 1:3) = [0 0 1; 0 -1 0; 1 0 0];
 
 Ts={T1,T2,T3,T4,T5};
-if opcion==1
+if opcion==0
     [q1,qd1,qdd1]=gTrayectoria_a(Ts,R,qq);
 else
     [q1,qd1,qdd1]=gTrayectoria_c(Ts,R,qq);
