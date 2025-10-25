@@ -50,7 +50,7 @@ T_FL_40cm(1:3,4) = T_rueda(1:3,4) - T_rueda(1:3,3) * 0.4;
 
 Ts2={T5,T_FL_40cm,T_rueda,T_FL_40cm,T1};
 
-if opcion==1
+if opcion==0
     [q2,qd2,qdd2]=gTrayectoria_a(Ts2,R,qq);
 else
     [q2,qd2,qdd2]=gTrayectoria_c(Ts2,R,qq);
