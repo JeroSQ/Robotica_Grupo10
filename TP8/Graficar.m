@@ -21,7 +21,7 @@ function T_FL = Graficar(siGrafico)
     T_rueda_local(1:3,4) = pos_rueda_local(:);
     T_rueda_local(1:3,1:3) = [0 0 1; 0 -1 0; 1 0 0];
     
-    fv = stlread('f1_car.stl'); 
+    fv = stlread('f1_car_2.stl'); 
     V = fv.Points * 0.001; % el stl está en mm
     F = fv.ConnectivityList;
     
