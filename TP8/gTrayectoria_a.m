@@ -10,7 +10,7 @@ function [q, qd, qdd] = gTrayectoria_a(listaTs, R,qq)
         qd=[qd;qdaux];
         qdd=[qdd;qddaux];
         qant=qact;
+        qq=qact;
     end
-    qq=qact;
 end
 

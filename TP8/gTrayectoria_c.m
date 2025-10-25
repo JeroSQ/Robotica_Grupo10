@@ -7,8 +7,8 @@ function [q, qd, qdd] = gTrayectoria_c(listaTs, R,qq)
         Tinters=ctraj(listaTs{i-1}, listaTs{i}, 100);
         qaux=R.ikine(Tinters, qq);
         q=[q;qaux];
+        qq=qaux;
     end
    qd  = gradient(q);
    qdd = gradient(qd);
-   qq=qaux;
 end
