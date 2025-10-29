@@ -45,6 +45,7 @@ function T_FL = Graficar(siGrafico)
     end
             
     % Generamos pequeños desplazamientos y rotación al azar del F1 
+    rng('shuffle');
     desplazamiento_x = (rand - 0.5) * 0.2;
     desplazamiento_y = (rand - 0.5) * 0.2;
     rotacion_z = (rand - 0.5) * (10 * pi/180);
