@@ -35,9 +35,9 @@ T5(1:3, 1:3) = [0 0 1; 0 -1 0; 1 0 0];
 
 Ts={T1,T2,T3,T4,T5};
 if opcion==0
-    [q1,qd1,qdd1]=gTrayectoria_a(Ts,R,qq);
+    [q1,qd1,qdd1]=gTrayectoria_a(Ts,R,qq, 100);
 else
-    [q1,qd1,qdd1]=gTrayectoria_c(Ts,R,qq);
+    [q1,qd1,qdd1]=gTrayectoria_c(Ts,R,qq, 100);
 end
 
 R.plot(q1, 'fps', 244);
@@ -51,9 +51,9 @@ T_FL_40cm(1:3,4) = T_rueda(1:3,4) - T_rueda(1:3,3) * 0.4;
 Ts2={T5,T_FL_40cm,T_rueda,T_FL_40cm,T1};
 
 if opcion==0
-    [q2,qd2,qdd2]=gTrayectoria_a(Ts2,R,qq);
+    [q2,qd2,qdd2]=gTrayectoria_a(Ts2,R,qq, 20);
 else
-    [q2,qd2,qdd2]=gTrayectoria_c(Ts2,R,qq);
+    [q2,qd2,qdd2]=gTrayectoria_c(Ts2,R,qq, 20);
 end
 
 qf=[q1; q2];

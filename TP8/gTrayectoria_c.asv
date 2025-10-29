@@ -1,4 +1,4 @@
-function [q, qd, qdd] = gTrayectoria_c(listaTs, R,qq, n)
+function [q, qd, qdd] = gTrayectoria_c(listaTs, R,qq, n=100)
     q=[];
     qd=[];
     qdd=[];
