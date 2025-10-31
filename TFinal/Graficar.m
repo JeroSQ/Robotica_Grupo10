@@ -1,4 +1,4 @@
-function T_FL = Graficar(key,siGrafico)
+function T_FL = Graficar(siGrafico)
     global R X_F1_IDEAL Y_F1_IDEAL Z_F1_LEVANTADO DIAMETRO_RUEDA T_rueda_local Ts;
     robot;        
     X_F1_IDEAL = 2;
@@ -77,11 +77,12 @@ function T_FL = Graficar(key,siGrafico)
         posiciones_y = linspace(y_inicial, pose.y, pasos_animacion);
         
         if siGrafico
-        for i = 1:pasos_animacion
-            M = makehgtform('translate', [posiciones_x(i), posiciones_y(i), Z_F1_LEVANTADO], ...
-                            'zrotate', pose.theta);
-            set(tform, 'Matrix', M);
-            drawnow;
+            for i = 1:pasos_animacion
+                M = makehgtform('translate', [posiciones_x(i), posiciones_y(i), Z_F1_LEVANTADO], ...
+                                'zrotate', pose.theta);
+                set(tform, 'Matrix', M);
+                drawnow;
+            end
         end
     else
         disp('Primero ejecuta moverModelo(''m'', tform) para generar una posición.');
