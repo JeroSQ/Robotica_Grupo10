@@ -119,7 +119,7 @@ function secuenciaCompleta(RA,RB,q1A,q2B,q3A,q4A,q4B,q5B,q6A,q7B)
     entraAuto();
     animarUnRobot(RA,q3A);
     animarDosRobots(RA,RB,q4A,q4B);
-    animarUnRobot(RA,q5B);
+    animarUnRobot(RB,q5B);
     saleAuto();
     animarUnRobot(RA,q6A);
     animarUnRobot(RB,q7B);
