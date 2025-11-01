@@ -1,6 +1,7 @@
 clear; clc;
 robotA;
 robotB;
+escena = generarEscena();
 
 %% Trayectorias calculadas %%
 % 1: RA Llega a T5
@@ -8,8 +9,8 @@ robotB;
 % 3: RA saca la rueda
 % 4: RA sale hacia la izquierda y RB entra para hacer el cambio
 % 5: RB coloca la nueva rueda
-% 6: RA deja la rueda vieja a un lado y hace homming
-% 7: RB hace homming
+% 6: RA deja la rueda vieja a un lado y hace homing
+% 7: RB hace homing
 
 %Los pasos 1 y 2 y, 6 y 7 se pueden realizar de manera asincrona o sincrona
 %El paso 4 es el unico que verdaderamente necesita sincronismo
@@ -61,11 +62,7 @@ T3B(1:3,4) = P3B;
 T4B=T5;
 T4B(2,4) = - 0.8;
 
-%PUNTO AUXILIAR HASTA TENER EL REAL
-Paux=[2 0 0.46];
-
-T_rueda=T5;
-T_rueda(1:3,4)=Paux;
+T_rueda=escena.T_rueda_detenida_global;
 T_FL_40cm = T_rueda;
 T_FL_40cm(1:3,4) = T_rueda(1:3,4) - T_rueda(1:3,3) * 0.4;
 
@@ -115,3 +112,4 @@ Ts7B={T_FL_40cm,T0B};
 [q7B,qd7B,qdd7B,qqB]=gTrayectoria_a(Ts7B,RB,qqB);
 
 save('trayectorias_robots.mat','q1A','q2B','q3A','q4A','q4B','q5B','q6A','q7B');
+save('escena.mat', 'escena');

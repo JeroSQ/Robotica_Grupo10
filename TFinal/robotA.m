@@ -34,7 +34,7 @@ RA.base = transl(0,0.75,0);
 % tool
 % Es una matriz homogénea, pero describe la transformación desde la última articulación
 % hasta el effector. Asumimos uno genérico
-RA.tool = transl(0, 0, 0.15);
+RA.tool = transl(0, 0, 0.245);
 
 % [-limX, +limX, -limY, +limY, -limZ, +limZ]
 workspaceA = [-3, 3, -3, 3, -2, 3];
