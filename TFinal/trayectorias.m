@@ -84,17 +84,29 @@ q2B=[q2aB;q2cB;q2dB];
 qd2B=[qd2aB;qd2cB;qd2dB];
 qdd2B=[qdd2aB;qdd2cB;qdd2dB];
 
+q2B0 = [q2aB;q2cB];
+q2B1 = q2dB;
+qd2B0 = [qd2aB;qd2cB];
+qd2B1 = qd2dB;
+qdd2B0 = [qdd2aB;qdd2cB];
+qdd2B1 = qdd2dB;
+
 %% PASO 3 %%
-Ts3A={T5,T_FL_40cm,T_rueda,T_FL_40cm};
-[q3A,qd3A,qdd3A,qqA]=gTrayectoria_c(Ts3A,RA,qqA);
+Ts3A0={T5,T_FL_40cm,T_rueda};
+Ts3A1={T_rueda, T_FL_40cm};
+[q3A0,qd3A0,qdd3A0,qqA]=gTrayectoria_c(Ts3A0,RA,qqA);
+[q3A1,qd3A1,qdd3A1,qqA]=gTrayectoria_c(Ts3A1,RA,qqA);
+
 %% PASO 4 %%
 Ts4A={T_FL_40cm,T4A};
 Ts4B={T4B,T_FL_40cm};
 [q4A,qd4A,qdd4A,qqA]=gTrayectoria_a(Ts4A,RA,qqA);
 [q4B,qd4B,qdd4B,qqA]=gTrayectoria_a(Ts4B,RB,qqA);
 %% PASO 5 %%
-Ts5B={T_FL_40cm,T_rueda,T_FL_40cm};
-[q5B,qd5B,qdd5B,qqA]=gTrayectoria_a(Ts5B,RB,qqA);
+Ts5B0={T_FL_40cm,T_rueda};
+Ts5B1={T_rueda,T_FL_40cm};
+[q5B0,qd5B0,qdd5B0,qqA]=gTrayectoria_a(Ts5B0,RB,qqA);
+[q5B1,qd5B1,qdd5B1,qqA]=gTrayectoria_a(Ts5B1,RB,qqA);
 %% PASO 6 %%
 Ts6Aa2={T2A,T1A,T0A};
 Ts6Ac={T3A,T2A};
@@ -104,12 +116,15 @@ Ts6Aa1={T4A,T2A,T3A};
 [q6cA,qd6cA,qdd6cA,qqA]=gTrayectoria_c(Ts6Ac,RA,qqA);
 [q6dA,qd6dA,qdd6dA,qqA]=gTrayectoria_a(Ts6Aa2,RA,qqA);
 
-q6A=[q6aA;q6cA;q6dA];
-qd6A=[qd6aA;qd6cA;qd6dA];
-qdd6A=[qdd6aA;qdd6cA;qdd6dA];
+q6A0=q6aA;
+q6A1=[q6cA;q6dA];
+qd6A0=qd6aA;
+qd6A1=[qd6cA;qd6dA];
+qdd6A0=qdd6aA;
+qdd6A1=[qdd6cA;qdd6dA];
 %% PASO 7 %%
 Ts7B={T_FL_40cm,T0B};
 [q7B,qd7B,qdd7B,qqB]=gTrayectoria_a(Ts7B,RB,qqB);
 
-save('trayectorias_robots.mat','q1A','q2B','q3A','q4A','q4B','q5B','q6A','q7B');
+save('trayectorias_robots.mat','q1A','q2B0', 'q2B1','q3A0', 'q3A1','q4A','q4B','q5B0', 'q5B1','q6A0', 'q6A1','q7B');
 save('escena.mat', 'escena');

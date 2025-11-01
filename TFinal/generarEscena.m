@@ -20,7 +20,7 @@ function escena = generarEscena
     DIST_CENTRO_AUTO_RUEDA_Y = -ANCHO_AUTO_DEL/2+ANCHO_RUEDA_DEL/2;
     
     % Posición de la rueda referida al sistema de coordenadas centrado en el auto
-    pos_rueda_auto = [DIST_CENTRO_AUTO_RUEDA_X, DIST_CENTRO_AUTO_RUEDA_Y, 0];  
+    pos_rueda_auto = [DIST_CENTRO_AUTO_RUEDA_X, DIST_CENTRO_AUTO_RUEDA_Y, DIAMETRO_RUEDA/2];  
     T_rueda_auto   = eye(4);
     T_rueda_auto(1:3,4) = pos_rueda_auto;
     T_rueda_auto(1:3,1:3) = [0 0 1; 0 -1 0; 1 0 0];
@@ -34,7 +34,7 @@ function escena = generarEscena
 
     auto_detenido.x = X_F1_IDEAL + desplazamiento_x;
     auto_detenido.y = Y_F1_IDEAL + desplazamiento_y;
-    auto_detenido.z = Z_F1_LEVANTADO + DIAMETRO_RUEDA / 2;
+    auto_detenido.z = Z_F1_LEVANTADO;
     auto_detenido.theta = -pi/2 + rotacion_z;
 
     T_auto_detenido_global = transl(auto_detenido.x, auto_detenido.y, auto_detenido.z) * trotz(auto_detenido.theta);
@@ -45,18 +45,18 @@ function escena = generarEscena
     x_inicial_auto = auto_detenido.x + distancia_animacion_auto * cos(auto_detenido.theta);
     y_inicial_auto = auto_detenido.y + distancia_animacion_auto * sin(auto_detenido.theta);
     z_inicial_auto = auto_detenido.z;
-    T_auto_inicial_global = transl(x_inicial_auto, y_inicial_auto, z_inicial_auto) * trotz(auto_detenido.z);
+    T_auto_inicial_global = transl(x_inicial_auto, y_inicial_auto, z_inicial_auto) * trotz(auto_detenido.theta);
 
-    x_final_auto = auto_detenido.x + 2 * distancia_animacion_auto * cos(auto_detenido.theta);
-    y_final_auto = auto_detenido.y + 2 * distancia_animacion_auto * sin(auto_detenido.theta);
+    x_final_auto = auto_detenido.x - distancia_animacion_auto * cos(auto_detenido.theta);
+    y_final_auto = auto_detenido.y - distancia_animacion_auto * sin(auto_detenido.theta);
     z_final_auto = auto_detenido.z;
-    T_auto_final_global = transl(x_final_auto, y_final_auto, z_final_auto) * trotz(auto_detenido.z);
+    T_auto_final_global = transl(x_final_auto, y_final_auto, z_final_auto) * trotz(auto_detenido.theta);
 
-    pos_rueda_nueva_inicial = [0 2  0.3525];
+    pos_rueda_nueva_inicial = [0 -2  ANCHO_RUEDA_DEL/2];
     T_rueda_nueva_inicial = trotx(pi);
     T_rueda_nueva_inicial(1:3,4) = pos_rueda_nueva_inicial;
 
-    pos_rueda_gastada_final = [0 -2  0.3525];
+    pos_rueda_gastada_final = [0 2  ANCHO_RUEDA_DEL/2];
     T_rueda_gastada_final = trotx(pi);
     T_rueda_gastada_final(1:3,4) = pos_rueda_gastada_final;
 
