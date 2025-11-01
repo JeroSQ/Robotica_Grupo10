@@ -1,16 +1,16 @@
-function [q, qd, qdd] = gTrayectoria_a(listaTs, R,qq)
+function [q, qd, qdd, qq_F] = gTrayectoria_a(listaTs, R,qq)
     q=[];
     qd=[];
     qdd=[];
     qant=R.ikine(listaTs{1}, qq);
     for i = 2:numel(listaTs)
-        qact=R.ikine(listaTs{i}, qq);
+        qact=R.ikine(listaTs{i}, qant);
         [qaux,qdaux,qddaux]=jtraj(qant, qact, 100);
         q=[q;qaux];
         qd=[qd;qdaux];
         qdd=[qdd;qddaux];
         qant=qact;
-        qq=qact;
     end
+    qq_F=qact;
 end
 
