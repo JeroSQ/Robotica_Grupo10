@@ -159,7 +159,7 @@ figure;
 subplot(3,1,1);
 qplot(qfA);
 grid on;
-title('Posición articular');
+title('Posición articular RA');
 xlabel('Muestras');
 ylabel('Ángulo articular [rad]');
 rotate3d off; pan off; zoom off;
@@ -167,7 +167,7 @@ rotate3d off; pan off; zoom off;
 subplot(3,1,2);
 qplot(qdfA);
 grid on;
-title('Velocidad articular');
+title('Velocidad articular RA');
 xlabel('Muestras');
 ylabel('Velocidad [rad/s]');
 rotate3d off; pan off; zoom off;
@@ -175,7 +175,7 @@ rotate3d off; pan off; zoom off;
 subplot(3,1,3);
 qplot(qddfA);
 grid on;
-title('Aceleración articular');
+title('Aceleración articular RA');
 xlabel('Muestras');
 ylabel('Aceleración [rad/s^2]');
 rotate3d off; pan off; zoom off;
@@ -185,7 +185,7 @@ figure;
 subplot(3,1,1);
 qplot(qfB);
 grid on;
-title('Posición articular');
+title('Posición articular RB');
 xlabel('Muestras');
 ylabel('Ángulo articular [rad]');
 rotate3d off; pan off; zoom off;
@@ -193,7 +193,7 @@ rotate3d off; pan off; zoom off;
 subplot(3,1,2);
 qplot(qdfB);
 grid on;
-title('Velocidad articular');
+title('Velocidad articular RB');
 xlabel('Muestras');
 ylabel('Velocidad [rad/s]');
 rotate3d off; pan off; zoom off;
@@ -201,7 +201,7 @@ rotate3d off; pan off; zoom off;
 subplot(3,1,3);
 qplot(qddfB);
 grid on;
-title('Aceleración articular');
+title('Aceleración articular RB');
 xlabel('Muestras');
 ylabel('Aceleración [rad/s^2]');
 rotate3d off; pan off; zoom off;
@@ -228,17 +228,22 @@ for i = 1:NB
     rpyB(i,:) = tr2rpy(TfB.R, 'xyz');    % orientación en RPY
 end
 
+%Corrijo cambios bruscos de fase
+rpyA = unwrap(rpyA);
+rpyB = unwrap(rpyB);
+
 % Concatenar en una sola matriz de 6 columnas [x y z roll pitch yaw]
 xyzrpyA = [pA rpyA];
 xyzrpyB = [pB rpyB];
 
 % === Derivar numéricamente ===
 dt = 1;   % o tu paso real de muestreo (p. ej. 0.01)
-v_cartA = gradient(xyzrpyA, dt);   % velocidades cartesianas
-a_cartA = gradient(v_cartA, dt);   % aceleraciones cartesianas
 
-v_cartB = gradient(xyzrpyB, dt);   % velocidades cartesianas
-a_cartB = gradient(v_cartB, dt);   % aceleraciones cartesianas
+v_cartA = diff(xyzrpyA);   % velocidades cartesianas
+a_cartA = diff(v_cartA);   % aceleraciones cartesianas
+
+v_cartB = diff(xyzrpyB);   % velocidades cartesianas
+a_cartB = diff(v_cartB);   % aceleraciones cartesianas
 
 % === Graficar ===
 tA=1:NA;
@@ -247,7 +252,7 @@ tB=1:NB;
 
 figure;
 subplot(3,1,1);
-plot(tA,xyzrpyA);
+plot(xyzrpyA);
 grid on;
 title('Posición y orientación cartesianas del efector final RA');
 xlabel('Muestras');
@@ -256,7 +261,7 @@ legend('x','y','z','roll','pitch','yaw');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
-plot(tA,v_cartA);
+plot(v_cartA);
 grid on;
 title('Velocidad cartesiana del efector final RA');
 xlabel('Muestras');
@@ -265,7 +270,7 @@ legend('v_x','v_y','v_z','\omega_x','\omega_y','\omega_z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
-plot(tA,a_cartA);
+plot(a_cartA);
 grid on;
 title('Aceleración cartesiana del efector final RA');
 xlabel('Muestras');
@@ -275,7 +280,7 @@ rotate3d off; pan off; zoom off;
 
 figure;
 subplot(3,1,1);
-plot(tB,xyzrpyB);
+plot(xyzrpyB);
 grid on;
 title('Posición y orientación cartesianas del efector final RB');
 xlabel('Muestras');
@@ -284,7 +289,7 @@ legend('x','y','z','roll','pitch','yaw');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
-plot(tB,v_cartB);
+plot(v_cartB);
 grid on;
 title('Velocidad cartesiana del efector final RB');
 xlabel('Muestras');
@@ -293,7 +298,7 @@ legend('v_x','v_y','v_z','\omega_x','\omega_y','\omega_z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
-plot(tB,a_cartB);
+plot(a_cartB);
 grid on;
 title('Aceleración cartesiana del efector final RB');
 xlabel('Muestras');
