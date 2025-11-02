@@ -162,6 +162,34 @@ classdef Animador < handle
             animador.estado.auto = "ido";
 
         end
+
+        function reset(animador)
+            
+            % Borro todo lo gráfico (si existe)
+            if isgraphics(animador.nodo_rueda_nueva),   delete(animador.nodo_rueda_nueva);   end
+            if isgraphics(animador.nodo_rueda_gastada), delete(animador.nodo_rueda_gastada); end
+            if isgraphics(animador.nodo_soporte_rueda), delete(animador.nodo_soporte_rueda); end
+            if isgraphics(animador.nodo_auto),          delete(animador.nodo_auto);          end
+        
+            % Reseteo todo
+            animador.nodo_rueda_nueva    = [];
+            animador.malla_rueda_nueva   = [];
+            animador.nodo_rueda_gastada  = [];
+            animador.malla_rueda_gastada = [];
+            animador.nodo_soporte_rueda  = [];
+            animador.nodo_auto           = [];
+            animador.malla_auto          = [];
+            animador.matriz_auto_actual  = [];
+        
+            % Estado inicial
+            animador.estado.auto          = "no_cargado";
+            animador.estado.rueda_nueva   = "en_piso";
+            animador.estado.rueda_gastada = "pegada";
+        
+            % Vuelvo a mostrar el estado inicial (rueda nueva en el piso)
+            animador.mostrarInicial();
+
+        end
     end
 
     methods (Access = private)
