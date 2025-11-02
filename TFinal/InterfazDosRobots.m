@@ -192,7 +192,7 @@ function animarUnRobot(R,q,fase,animador)
             animador.actualizarRuedas(T, T, fase);
         end
 
-        drawnow
+        drawnow limitrate
     end
 end
 
@@ -208,11 +208,14 @@ function animarDosRobots(RA,RB,qA,qB,fase,animador)
             animador.actualizarRuedas(TA, TB, fase);
         end
 
-        drawnow
+        drawnow limitrate
     end
 end
 
 function secuenciaCompleta(RA,RB,q1A,q2B0,q2B1,q3A0,q3A1,q4A,q4B,q5B0, q5B1,q6A0,q6A1,q7B,animador,ANIMAR_STL)
+    if ANIMAR_STL
+        animador.reset();
+    end
     paso1(RA,q1A,animador,ANIMAR_STL);
     paso2(RB,q2B0, q2B1,animador,ANIMAR_STL);
     entraAuto(animador,ANIMAR_STL);
@@ -222,12 +225,16 @@ function secuenciaCompleta(RA,RB,q1A,q2B0,q2B1,q3A0,q3A1,q4A,q4B,q5B0, q5B1,q6A0
     saleAuto(animador,ANIMAR_STL);
     paso6(RA,q6A0,q6A1,animador,ANIMAR_STL);
     paso7(RB,q7B,animador,ANIMAR_STL);
-
 end
 
-function resetRobots(RA,RB)
+function resetRobots(RA,RB,animador,ANIMAR_STL)
     disp('Reiniciando robots...');
     RA.animate([pi/2,0,0,0,0,0]);
     RB.animate([-pi/2,0,0,0,0,0]);
-    drawnow
+
+    if ANIMAR_STL
+        animador.reset();
+    end
+
+    drawnow limitrate
 end
