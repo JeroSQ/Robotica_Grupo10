@@ -140,5 +140,164 @@ qdd6A1=[qdd6cA;qdd6dA];
 Ts7B={T_FL_40cm,T0B};
 [q7B,qd7B,qdd7B,qqB]=gTrayectoria_a(Ts7B,RB,qqB);
 
+
 save('trayectorias_robots.mat','q1A','q2B0', 'q2B1','q3A0', 'q3A1','q4A','q4B','q5B0', 'q5B1','q6A0', 'q6A1','q7B');
 save('escena.mat', 'escena');
+
+
+qfA=[q1A;q3A0;q3A1;q4A;q6A0;q6A1];
+qdfA=[qd1A;qd3A0;qd3A1;qd4A;qd6A0;qd6A1];
+qddfA=[qdd1A;qdd3A0;qdd3A1;qdd4A;qdd6A0;qdd6A1];
+
+qfB=[q2B0;q2B1;q4B;q5B0;q5B1;q7B];
+qdfB=[qd2B0;qd2B1;qd4B;qd5B0;qd5B1;qd7B];
+qddfB=[qdd2B0;qdd2B1;qdd4B;qdd5B0;qdd5B1;qdd7B];
+%%
+
+figure;
+
+subplot(3,1,1);
+qplot(qfA);
+grid on;
+title('Posición articular');
+xlabel('Muestras');
+ylabel('Ángulo articular [rad]');
+rotate3d off; pan off; zoom off;
+
+subplot(3,1,2);
+qplot(qdfA);
+grid on;
+title('Velocidad articular');
+xlabel('Muestras');
+ylabel('Velocidad [rad/s]');
+rotate3d off; pan off; zoom off;
+
+subplot(3,1,3);
+qplot(qddfA);
+grid on;
+title('Aceleración articular');
+xlabel('Muestras');
+ylabel('Aceleración [rad/s^2]');
+rotate3d off; pan off; zoom off;
+
+figure;
+
+subplot(3,1,1);
+qplot(qfB);
+grid on;
+title('Posición articular');
+xlabel('Muestras');
+ylabel('Ángulo articular [rad]');
+rotate3d off; pan off; zoom off;
+
+subplot(3,1,2);
+qplot(qdfB);
+grid on;
+title('Velocidad articular');
+xlabel('Muestras');
+ylabel('Velocidad [rad/s]');
+rotate3d off; pan off; zoom off;
+
+subplot(3,1,3);
+qplot(qddfB);
+grid on;
+title('Aceleración articular');
+xlabel('Muestras');
+ylabel('Aceleración [rad/s^2]');
+rotate3d off; pan off; zoom off;
+
+
+% === Calcular coordenadas cartesianas del efector final ===
+NA = size(qfA,1);
+pA = zeros(NA,3);    % posición (x, y, z)
+rpyA = zeros(NA,3);  % orientación (roll, pitch, yaw)
+
+NB = size(qfB,1);
+pB=zeros(NB,3);
+rpyB = zeros(NB,3);
+
+for i = 1:NA
+    TfA = RA.fkine(qfA(i,:));
+    pA(i,:) = TfA.t';                    % posición cartesiana
+    rpyA(i,:) = tr2rpy(TfA.R, 'xyz');    % orientación en RPY
+end
+
+for i = 1:NB
+    TfB = RB.fkine(qfB(i,:));
+    pB(i,:) = TfB.t';                    % posición cartesiana
+    rpyB(i,:) = tr2rpy(TfB.R, 'xyz');    % orientación en RPY
+end
+
+% Concatenar en una sola matriz de 6 columnas [x y z roll pitch yaw]
+xyzrpyA = [pA rpyA];
+xyzrpyB = [pB rpyB];
+
+% === Derivar numéricamente ===
+dt = 1;   % o tu paso real de muestreo (p. ej. 0.01)
+v_cartA = gradient(xyzrpyA, dt);   % velocidades cartesianas
+a_cartA = gradient(v_cartA, dt);   % aceleraciones cartesianas
+
+v_cartB = gradient(xyzrpyB, dt);   % velocidades cartesianas
+a_cartB = gradient(v_cartB, dt);   % aceleraciones cartesianas
+
+% === Graficar ===
+tA=1:NA;
+
+tB=1:NB;
+
+figure;
+subplot(3,1,1);
+plot(tA,xyzrpyA);
+grid on;
+title('Posición y orientación cartesianas del efector final RA');
+xlabel('Muestras');
+ylabel('Coordenadas [m / rad]');
+legend('x','y','z','roll','pitch','yaw');
+rotate3d off; pan off; zoom off;
+
+subplot(3,1,2);
+plot(tA,v_cartA);
+grid on;
+title('Velocidad cartesiana del efector final RA');
+xlabel('Muestras');
+ylabel('Velocidad [m/s / rad/s]');
+legend('v_x','v_y','v_z','\omega_x','\omega_y','\omega_z');
+rotate3d off; pan off; zoom off;
+
+subplot(3,1,3);
+plot(tA,a_cartA);
+grid on;
+title('Aceleración cartesiana del efector final RA');
+xlabel('Muestras');
+ylabel('Aceleración [m/s^2 / rad/s^2]');
+legend('a_x','a_y','a_z','\alpha_x','\alpha_y','\alpha_z');
+rotate3d off; pan off; zoom off;
+
+figure;
+subplot(3,1,1);
+plot(tB,xyzrpyB);
+grid on;
+title('Posición y orientación cartesianas del efector final RB');
+xlabel('Muestras');
+ylabel('Coordenadas [m / rad]');
+legend('x','y','z','roll','pitch','yaw');
+rotate3d off; pan off; zoom off;
+
+subplot(3,1,2);
+plot(tB,v_cartB);
+grid on;
+title('Velocidad cartesiana del efector final RB');
+xlabel('Muestras');
+ylabel('Velocidad [m/s / rad/s]');
+legend('v_x','v_y','v_z','\omega_x','\omega_y','\omega_z');
+rotate3d off; pan off; zoom off;
+
+subplot(3,1,3);
+plot(tB,a_cartB);
+grid on;
+title('Aceleración cartesiana del efector final RB');
+xlabel('Muestras');
+ylabel('Aceleración [m/s^2 / rad/s^2]');
+legend('a_x','a_y','a_z','\alpha_x','\alpha_y','\alpha_z');
+rotate3d off; pan off; zoom off;
+
