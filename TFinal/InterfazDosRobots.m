@@ -22,11 +22,19 @@ function InterfazDosRobots()
     ax = axes('Parent', fig, 'Position', [0.32 0.1 0.65 0.8]);
     view(ax, 3);
     grid(ax, 'on');
-    axis(ax, 'auto');         % <<< Ajuste automático
+    axis(ax,[-0.5,3.5,-2.5,2.5,0,2.2]);         % <<< Ajuste automático
+    axis(ax, 'manual');
     axis(ax, 'equal');        % Mantiene proporciones reales
     xlabel(ax, 'X'); ylabel(ax, 'Y'); zlabel(ax, 'Z');
     title(ax, 'Visualización de RA y RB');
     hold(ax, 'on');
+
+    ax.XLim = [-0.5,3.5];
+    ax.YLim = [-2.5,2.5];
+    ax.ZLim = [0,2.2];
+    ax.XLimMode = 'manual';
+    ax.YLimMode = 'manual';
+    ax.ZLimMode = 'manual';
 
 
     % === Dibujar robots ===
