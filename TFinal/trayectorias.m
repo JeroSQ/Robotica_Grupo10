@@ -119,8 +119,13 @@ Ts4B={T4B,T_FL_40cm};
 %% PASO 5 %%
 Ts5B0={T_FL_40cm,T_rueda};
 Ts5B1={T_rueda,T_FL_40cm};
+<<<<<<< HEAD
 [q5B0,qd5B0,qdd5B0,qqB]=gTrayectoria_a(Ts5B0,RB,qqB);
 [q5B1,qd5B1,qdd5B1,qqB]=gTrayectoria_a(Ts5B1,RB,qqB);
+=======
+[q5B0,qd5B0,qdd5B0,qqA]=gTrayectoria_c(Ts5B0,RB,qqA);
+[q5B1,qd5B1,qdd5B1,qqA]=gTrayectoria_c(Ts5B1,RB,qqA);
+>>>>>>> 23f8409e677c29b0cd9f9aa20986714d03f3650f
 %% PASO 6 %%
 Ts6Aa2={T2A,T1A,T0A};
 Ts6Ac={T3A,T2A};
