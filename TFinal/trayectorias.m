@@ -120,8 +120,8 @@ Ts4B={T4B,T_FL_40cm};
 Ts5B0={T_FL_40cm,T_rueda};
 Ts5B1={T_rueda,T_FL_40cm};
 
-[q5B0,qd5B0,qdd5B0,qqB]=gTrayectoria_a(Ts5B0,RB,qqB);
-[q5B1,qd5B1,qdd5B1,qqB]=gTrayectoria_a(Ts5B1,RB,qqB);
+[q5B0,qd5B0,qdd5B0,qqB]=gTrayectoria_c(Ts5B0,RB,qqB);
+[q5B1,qd5B1,qdd5B1,qqB]=gTrayectoria_c(Ts5B1,RB,qqB);
 
 %% PASO 6 %%
 Ts6Aa2={T2A,T1A,T0A};
@@ -241,10 +241,10 @@ xyzrpyB = [pB rpyB];
 % === Derivar numéricamente ===
 dt = 1;   % o tu paso real de muestreo (p. ej. 0.01)
 
-v_cartA = diff(xyzrpyA);   % velocidades cartesianas
+v_cartA = diff(pA);   % velocidades cartesianas
 a_cartA = diff(v_cartA);   % aceleraciones cartesianas
 
-v_cartB = diff(xyzrpyB);   % velocidades cartesianas
+v_cartB = diff(pB);   % velocidades cartesianas
 a_cartB = diff(v_cartB);   % aceleraciones cartesianas
 
 % === Graficar ===
@@ -254,12 +254,12 @@ tB=1:NB;
 
 figure;
 subplot(3,1,1);
-plot(xyzrpyA);
+plot(pA);
 grid on;
-title('Posición y orientación cartesianas del efector final RA');
+title('Posición cartesiana del efector final RA');
 xlabel('Muestras');
 ylabel('Coordenadas [m / rad]');
-legend('x','y','z','roll','pitch','yaw');
+legend('x','y','z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
@@ -268,7 +268,7 @@ grid on;
 title('Velocidad cartesiana del efector final RA');
 xlabel('Muestras');
 ylabel('Velocidad [m/s / rad/s]');
-legend('v_x','v_y','v_z','\omega_x','\omega_y','\omega_z');
+legend('v_x','v_y','v_z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
@@ -277,17 +277,17 @@ grid on;
 title('Aceleración cartesiana del efector final RA');
 xlabel('Muestras');
 ylabel('Aceleración [m/s^2 / rad/s^2]');
-legend('a_x','a_y','a_z','\alpha_x','\alpha_y','\alpha_z');
+legend('a_x','a_y','a_z');
 rotate3d off; pan off; zoom off;
 
 figure;
 subplot(3,1,1);
-plot(xyzrpyB);
+plot(pB);
 grid on;
-title('Posición y orientación cartesianas del efector final RB');
+title('Posición cartesiana del efector final RB');
 xlabel('Muestras');
 ylabel('Coordenadas [m / rad]');
-legend('x','y','z','roll','pitch','yaw');
+legend('x','y','z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
@@ -296,7 +296,7 @@ grid on;
 title('Velocidad cartesiana del efector final RB');
 xlabel('Muestras');
 ylabel('Velocidad [m/s / rad/s]');
-legend('v_x','v_y','v_z','\omega_x','\omega_y','\omega_z');
+legend('v_x','v_y','v_z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
@@ -305,6 +305,6 @@ grid on;
 title('Aceleración cartesiana del efector final RB');
 xlabel('Muestras');
 ylabel('Aceleración [m/s^2 / rad/s^2]');
-legend('a_x','a_y','a_z','\alpha_x','\alpha_y','\alpha_z');
+legend('a_x','a_y','a_z');
 rotate3d off; pan off; zoom off;
 
