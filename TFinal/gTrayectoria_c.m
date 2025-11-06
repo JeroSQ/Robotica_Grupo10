@@ -5,9 +5,11 @@ function [q, qd, qdd, qq_F] = gTrayectoria_c(listaTs, R,qq)
     %Primera parte
     for i = 2:numel(listaTs)
         Tinters=ctraj(listaTs{i-1}, listaTs{i}, 100);
-        qaux=R.ikine(Tinters, qq);
-        q=[q;qaux];
-        qq=qaux(end,:);
+        for j = 1:size(Tinters,3)
+            qaux=cinv(Tinters(:,:,j),R,qq,1);
+            q=[q;qaux];
+            qq=qaux;
+        end
     end
    qd  = diff(q)*100;
    qdd = diff(qd)*100;
