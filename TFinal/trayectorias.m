@@ -1,4 +1,4 @@
-clear; clc;
+clear all; clc; close all;
 robotA;
 robotB;
 escena = generarEscena();
@@ -82,22 +82,24 @@ Ts1A={T0A,T4A};
 %% PASO 2 %%
 Ts2Ba1={T0B,T1B,T2B};
 Ts2Bc={T2B,T3B};
-Ts2Ba2={T3B,T2B,T6B,T4B};
+Ts2Ba2={T3B,T2B};
+Ts2Ba3={T2B,T6B,T4B};
 
 [q2aB,qd2aB,qdd2aB,qqB]=gTrayectoria_a(Ts2Ba1,RB,qqB);
 [q2cB,qd2cB,qdd2cB,qqB]=gTrayectoria_c(Ts2Bc,RB,qqB);
 [q2dB,qd2dB,qdd2dB,qqB]=gTrayectoria_a(Ts2Ba2,RB,qqB);
+[q2eB,qd2eB,qdd2eB,qqB]=gTrayectoria_ms(Ts2Ba3,RB,qqB); %mstraj
 
-q2B=[q2aB;q2cB;q2dB];
-qd2B=[qd2aB;qd2cB;qd2dB];
-qdd2B=[qdd2aB;qdd2cB;qdd2dB];
+q2B=[q2aB;q2cB;q2dB;q2eB];
+qd2B=[qd2aB;qd2cB;qd2dB;qd2eB];
+qdd2B=[qdd2aB;qdd2cB;qdd2dB;qdd2eB];
 
 q2B0 = [q2aB;q2cB];
-q2B1 = q2dB;
+q2B1 = [q2dB; q2eB];
 qd2B0 = [qd2aB;qd2cB];
-qd2B1 = qd2dB;
+qd2B1 = [qd2dB; qd2eB];
 qdd2B0 = [qdd2aB;qdd2cB];
-qdd2B1 = qdd2dB;
+qdd2B1 = [qdd2dB;qdd2eB];
 
 %% PASO 3 %%
 Ts3A00={T4A,T_FL_40cm};
