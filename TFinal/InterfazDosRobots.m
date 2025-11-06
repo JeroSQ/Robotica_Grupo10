@@ -1,5 +1,5 @@
 function InterfazDosRobots()
-    clc;clear;close all;
+ %   clc;clear;close all;
 
     % === Cargar robots ===
     robotA;
@@ -106,7 +106,7 @@ function InterfazDosRobots()
     uicontrol('Parent', panel, 'Style','pushbutton', ...
         'String','Reiniciar Robots', ...
         'FontSize',11,'Position',[20 50 200 40], ...
-        'Callback', @(~,~) resetRobots(RA, RB,animador,ANIMAR_STL));
+        'Callback', @(~,~) resetRobots(RA, RB, posInitA, posInitB, animador, ANIMAR_STL));
 end
 
 % Defino paso1 para que haya consistencia
@@ -237,7 +237,7 @@ function secuenciaCompleta(RA,RB,q1A,q2B0,q2B1,q3A0,q3A1,q4A,q4B,q5B0, q5B1,q6A0
     paso7(RB,q7B,animador,ANIMAR_STL);
 end
 
-function resetRobots(RA,RB,animador,ANIMAR_STL)
+function resetRobots(RA,RB,posInitA,posInitB,animador,ANIMAR_STL)
     disp('Reiniciando robots...');
     RA.animate(posInitA);
     RB.animate(posInitB);

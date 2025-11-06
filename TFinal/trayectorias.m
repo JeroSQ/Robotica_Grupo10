@@ -1,4 +1,4 @@
-clear all; clc; close all;
+%clear all; clc; close all;
 robotA;
 robotB;
 escena = generarEscena();
@@ -130,7 +130,7 @@ Ts6Aa2={T2A,T0A};
 Ts6Ac={T3A,T2A};
 Ts6Aa1={T4A,T6A,T2A,T3A};
 
-[q6aA,qd6aA,qdd6aA,qqA]=gTrayectoria_a(Ts6Aa1,RA,qqA);
+[q6aA,qd6aA,qdd6aA,qqA]=gTrayectoria_ms(Ts6Aa1,RA,qqA);
 [q6cA,qd6cA,qdd6cA,qqA]=gTrayectoria_c(Ts6Ac,RA,qqA);
 [q6dA,qd6dA,qdd6dA,qqA]=gTrayectoria_a(Ts6Aa2,RA,qqA);
 
@@ -157,11 +157,27 @@ qfB=[q2B0;q2B1;q4B;q5B0;q5B1;q7B];
 qdfB=[qd2B0;qd2B1;qd4B;qd5B0;qd5B1;qd7B];
 qddfB=[qdd2B0;qdd2B1;qdd4B;qdd5B0;qdd5B1;qdd7B];
 %%
+% === CALCULAR INDICES PARA LAS LINEAS VERTICALES ===
+idxA = cumsum([size(q1A,1);
+               size(q3A0,1);
+               size(q3A1,1);
+               size(q4A,1);
+               size(q6A0,1)]);
+idxA = idxA(1:end-1); % No dibujamos la última línea (es el final)
+
+idxB = cumsum([size(q2B0,1);
+               size(q2B1,1);
+               size(q4B,1);
+               size(q5B0,1);
+               size(q5B1,1)]);
+idxB = idxB(1:end-1); % No dibujamos la última línea
+
 
 figure;
 
 subplot(3,1,1);
 qplot(qfA);
+xline(idxA, 'k--')
 grid on;
 title('Posición articular RA');
 xlabel('Muestras');
@@ -170,6 +186,7 @@ rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
 qplot(qdfA);
+xline(idxA, 'k--')
 grid on;
 title('Velocidad articular RA');
 xlabel('Muestras');
@@ -178,6 +195,7 @@ rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
 qplot(qddfA);
+xline(idxA, 'k--')
 grid on;
 title('Aceleración articular RA');
 xlabel('Muestras');
@@ -188,6 +206,7 @@ figure;
 
 subplot(3,1,1);
 qplot(qfB);
+xline(idxB, 'k--')
 grid on;
 title('Posición articular RB');
 xlabel('Muestras');
@@ -196,6 +215,7 @@ rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
 qplot(qdfB);
+xline(idxB, 'k--')
 grid on;
 title('Velocidad articular RB');
 xlabel('Muestras');
@@ -204,6 +224,7 @@ rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
 qplot(qddfB);
+xline(idxB, 'k--')
 grid on;
 title('Aceleración articular RB');
 xlabel('Muestras');
@@ -257,56 +278,62 @@ tB=1:NB;
 figure;
 subplot(3,1,1);
 plot(pA);
+xline(idxA, 'k--')
 grid on;
 title('Posición cartesiana del efector final RA');
 xlabel('Muestras');
-ylabel('Coordenadas [m / rad]');
+ylabel('Coordenadas [m]');
 legend('x','y','z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
 plot(v_cartA);
+xline(idxA, 'k--')
 grid on;
 title('Velocidad cartesiana del efector final RA');
 xlabel('Muestras');
-ylabel('Velocidad [m/s / rad/s]');
+ylabel('Velocidad [m/s]');
 legend('v_x','v_y','v_z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
 plot(a_cartA);
+xline(idxA, 'k--')
 grid on;
 title('Aceleración cartesiana del efector final RA');
 xlabel('Muestras');
-ylabel('Aceleración [m/s^2 / rad/s^2]');
+ylabel('Aceleración [m/s^2]');
 legend('a_x','a_y','a_z');
 rotate3d off; pan off; zoom off;
 
 figure;
 subplot(3,1,1);
 plot(pB);
+xline(idxB, 'k--')
 grid on;
 title('Posición cartesiana del efector final RB');
 xlabel('Muestras');
-ylabel('Coordenadas [m / rad]');
+ylabel('Coordenadas [m]');
 legend('x','y','z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
 plot(v_cartB);
+xline(idxB, 'k--')
 grid on;
 title('Velocidad cartesiana del efector final RB');
 xlabel('Muestras');
-ylabel('Velocidad [m/s / rad/s]');
+ylabel('Velocidad [m/s]');
 legend('v_x','v_y','v_z');
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
 plot(a_cartB);
+xline(idxB, 'k--')
 grid on;
 title('Aceleración cartesiana del efector final RB');
 xlabel('Muestras');
-ylabel('Aceleración [m/s^2 / rad/s^2]');
+ylabel('Aceleración [m/s^2]');
 legend('a_x','a_y','a_z');
 rotate3d off; pan off; zoom off;
 

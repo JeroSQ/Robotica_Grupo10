@@ -16,12 +16,12 @@ function [q, qd, qdd, qq_F] = gTrayectoria_ms(listaTs, R, qq)
     
     
     tsegment = [];
-    dt = 0.01;     
+    dt = 0.02;     
     t_acc = 0.5; 
     
     q = mstraj(q_waypoints(2:end,:), qdmax_rad, tsegment, q_waypoints(1,:), dt, t_acc);
-    qd  = diff(q)*100;
-    qdd = diff(qd)*100;
+    qd  = diff(q)*50;
+    qdd = diff(qd)*50;
     qd=[zeros(1,6);qd];
     qdd=[zeros(1,6);zeros(1,6);qdd];
 
