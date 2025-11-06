@@ -4,6 +4,8 @@ function InterfazDosRobots()
     % === Cargar robots ===
     robotA;
     robotB;
+    posInitA=[pi/2,0,0,0,pi/2,0];
+    posInitB=[-pi/2,0,0,0,pi/2,0];
     load('trayectorias_robots.mat','q1A','q2B0', 'q2B1','q3A0', 'q3A1','q4A','q4B','q5B0', 'q5B1','q6A0', 'q6A1','q7B');
     load('escena.mat', 'escena');
     ANIMAR_STL = true;
@@ -38,10 +40,10 @@ function InterfazDosRobots()
 
 
     % === Dibujar robots ===
-    RA.plot([pi/2,0,0,0,0,0], 'workspace', [-1.5 2 -1.5 1.5 0 1.5], ...
+    RA.plot(posInitA, 'workspace', [-1.5 2 -1.5 1.5 0 1.5], ...
         'delay', 0, 'nojaxes', 'noname', 'nowrist');
     hold on
-    RB.plot([-pi/2,0,0,0,0,0], 'workspace', [-1.5 2 -1.5 1.5 0 1.5], ...
+    RB.plot(posInitB, 'workspace', [-1.5 2 -1.5 1.5 0 1.5], ...
         'delay', 0, 'nojaxes', 'noname', 'nowrist');
 
     % === Creo Animador y muestro la rueda nueva en el piso ===
@@ -237,8 +239,8 @@ end
 
 function resetRobots(RA,RB,animador,ANIMAR_STL)
     disp('Reiniciando robots...');
-    RA.animate([pi/2,0,0,0,0,0]);
-    RB.animate([-pi/2,0,0,0,0,0]);
+    RA.animate(posInitA);
+    RB.animate(posInitB);
 
     if ANIMAR_STL
         animador.reset();

@@ -54,10 +54,25 @@ function Q = cinv(T, R, q_kuka_kr, mejor)
     qq = qq - R.offset' * ones(1,8);
 
     % Devolución --------------------------------------------------------------
+    
+    %Llevamos q al rango de la matriz
+    qlim = R.qlim;  % matriz 6x2 -> [qmin qmax]
+
+    for i = 1:size(qq,2)
+        for j = 1:6
+            while qq(j,i) < qlim(j,1) 
+                qq(j,i)=qq(j,i)+2*pi;
+            end
+            while qq(j,i) > qlim(j,2)
+                qq(j,i)=qq(j,i)-2*pi;
+            end
+        end
+    end
+    cantQ=size(qq,2);
     if mejor
-        Qaux = qq  - q_kuka_kr' * ones(1,8);
-        normas = zeros(1,8);
-        for i=1:8
+        Qaux = qq  - q_kuka_kr' * ones(1,cantQ);
+        normas = zeros(1,cantQ);
+        for i=1:cantQ
             normas(i) = norm(Qaux(:,i));
         end
         [~,pos] = min(normas);

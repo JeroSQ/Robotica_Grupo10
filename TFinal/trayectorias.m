@@ -16,8 +16,8 @@ escena = generarEscena();
 %El paso 4 es el unico que verdaderamente necesita sincronismo
 
 %% Definicion de los T antes de los pasos %%
-qqA=[pi/2,0,0,0,0,0];
-qqB=[-pi/2,0,0,0,0,0];
+qqA=[pi/2,0,0,0,pi/2,0];
+qqB=[-pi/2,0,0,0,pi/2,0];
 
 P5 = [1.5 0 0.46];
 
@@ -80,7 +80,7 @@ Ts1A={T0A,T4A};
 [q1A,qd1A,qdd1A,qqA]=gTrayectoria_a(Ts1A,RA,qqA);
 
 %% PASO 2 %%
-Ts2Ba1={T0B,T1B,T2B};
+Ts2Ba1={T0B,T2B};
 Ts2Bc={T2B,T3B};
 Ts2Ba2={T3B,T2B};
 Ts2Ba3={T2B,T6B,T4B};
@@ -126,7 +126,7 @@ Ts5B1={T_rueda,T_FL_40cm};
 [q5B1,qd5B1,qdd5B1,qqB]=gTrayectoria_c(Ts5B1,RB,qqB);
 
 %% PASO 6 %%
-Ts6Aa2={T2A,T1A,T0A};
+Ts6Aa2={T2A,T0A};
 Ts6Ac={T3A,T2A};
 Ts6Aa1={T4A,T6A,T2A,T3A};
 

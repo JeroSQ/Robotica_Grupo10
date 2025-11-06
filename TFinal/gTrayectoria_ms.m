@@ -5,7 +5,7 @@ function [q, qd, qdd, qq_F] = gTrayectoria_ms(listaTs, R, qq)
     q_waypoints = [qant]; 
     
     for i = 2:numel(listaTs)
-        qact = R.ikine(listaTs{i}, qant); 
+        qact = cinv(listaTs{i},R,qant,1); 
         q_waypoints = [q_waypoints; qact];
         qant = qact; 
     end
