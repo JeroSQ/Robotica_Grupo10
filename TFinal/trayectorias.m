@@ -24,14 +24,14 @@ P5 = [1.5 0 0.46];
 P1A =[0 2 1.515];
 P2A = [0 2  0.3525];
 P3A = [0 2  0.1525];
-P6A = [1.2 0.8 0.66];
-P4A = [1.2 0.8 0.46];
+P6A = [1.2 1 0.66];
+P4A = [1.2 1 0.46];
 
 P1B =[0 -2 1.515];
 P2B = [0 -2  0.4525];
 P3B = [0 -2  0.1525];
-P6B = [1.2 -0.8 0.66];
-P4B = [1.2 -0.8 0.46];
+P6B = [1.2 -1 0.66];
+P4B = [1.2 -1 0.46];
 
 T5 = eye(4);
 T5(1:3,4) = P5;
@@ -74,6 +74,12 @@ T_rueda=escena.T_rueda_detenida_global;
 T_FL_40cm = T_rueda;
 T_FL_40cm(1:3,4) = T_rueda(1:3,4) - T_rueda(1:3,3) * 0.6;
 
+T7A=T_rueda;
+T7A(1:3,4)=P4A;
+
+T7B=T_rueda;
+T7B(1:3,4)=P4B;
+
 
 %% PASO 1 %%
 Ts1A={T0A,T4A};
@@ -102,8 +108,8 @@ qdd2B0 = [qdd2aB;qdd2cB];
 qdd2B1 = [qdd2dB;qdd2eB];
 
 %% PASO 3 %%
-Ts3A00={T4A,T_FL_40cm};
-Ts3A01={T_FL_40cm,T_rueda};
+Ts3A00={T4A,T7A};
+Ts3A01={T7A,T_FL_40cm,T_rueda};
 Ts3A1={T_rueda, T_FL_40cm};
 [q3A00,qd3A00,qdd3A00,qqA]=gTrayectoria_a(Ts3A00,RA,qqA);
 [q3A01,qd3A01,qdd3A01,qqA]=gTrayectoria_c(Ts3A01,RA,qqA);
@@ -114,10 +120,32 @@ qd3A0=[qd3A00;qd3A01];
 qdd3A0=[qdd3A00;qdd3A01];
 
 %% PASO 4 %%
-Ts4A={T_FL_40cm,T4A};
-Ts4B={T4B,T_FL_40cm};
-[q4A,qd4A,qdd4A,qqA]=gTrayectoria_a(Ts4A,RA,qqA);
-[q4B,qd4B,qdd4B,qqB]=gTrayectoria_a(Ts4B,RB,qqB);
+
+Ts4A1={T_FL_40cm,T7A};
+Ts4A2={T7A,T4A};
+
+Ts4B0={T4B,T7B};
+Ts4B1={T7B,T_FL_40cm};
+
+
+q4A0=ones(50,1)*qqA;
+qd4A0=zeros(50,6);
+qdd4A0=zeros(50,6);
+[q4A1,qd4A1,qdd4A1,qqA]=gTrayectoria_c(Ts4A1,RA,qqA);
+[q4A2,qd4A2,qdd4A2,qqA]=gTrayectoria_a(Ts4A2,RA,qqA);
+[q4B0,qd4B0,qdd4B0,qqB]=gTrayectoria_a(Ts4B0,RB,qqB);
+[q4B1,qd4B1,qdd4B1,qqB]=gTrayectoria_c(Ts4B1,RB,qqB);
+q4B2=ones(50,1)*qqB;
+qd4B2=zeros(50,6);
+qdd4B2=zeros(50,6);
+
+q4A=[q4A0;q4A1;q4A2];
+qd4A=[qd4A0;qd4A1;qd4A2];
+qdd4A=[qdd4A0;qdd4A1;qdd4A2];
+
+q4B=[q4B0;q4B1;q4B2];
+qd4B=[qd4B0;qd4B1;qd4B2];
+qdd4B=[qdd4B0;qdd4B1;qdd4B2];
 %% PASO 5 %%
 Ts5B0={T_FL_40cm,T_rueda};
 Ts5B1={T_rueda,T_FL_40cm};
@@ -141,8 +169,8 @@ qd6A1=[qd6cA;qd6dA];
 qdd6A0=qdd6aA;
 qdd6A1=[qdd6cA;qdd6dA];
 %% PASO 7 %%
-Ts7B={T_FL_40cm,T0B};
-[q7B,qd7B,qdd7B,qqB]=gTrayectoria_a(Ts7B,RB,qqB);
+Ts7B={T_FL_40cm,T7B,T0B};
+[q7B,qd7B,qdd7B,qqB]=gTrayectoria_ms(Ts7B,RB,qqB);
 
 
 save('trayectorias_robots.mat','q1A','q2B0', 'q2B1','q3A0', 'q3A1','q4A','q4B','q5B0', 'q5B1','q6A0', 'q6A1','q7B');
