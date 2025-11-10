@@ -195,7 +195,8 @@ idxA = cumsum([0;
 idxB = cumsum([0;
                size(q2B0,1) + size(q2B1,1);
                size(q4B,1);
-               size(q5B0,1) + size(q5B1,1)]); 
+               size(q5B0,1) + size(q5B1,1);
+               size(q7B,1)]); 
 
 figure;
 
@@ -205,7 +206,7 @@ qplot(qfA);
 xline(idxA, 'k--', 'HandleVisibility','off');
 
 labelsA = ["Paso 1","Paso 3","Paso 4","Paso 6"];
-labelsB = ["Paso 2","Paso 4","Paso 7"];
+labelsB = ["Paso 2","Paso 4", "Paso 5", "Paso 7"];
 
 yl = ylim;
 yText = 1.9;  
@@ -354,6 +355,7 @@ t3.Position(2) = 1.2;
 xlabel('Muestras');
 ylabel('Coordenadas [m]');
 legend('x','y','z');
+xlim([idxA(1), idxA(end)]);
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
@@ -364,6 +366,7 @@ title('Velocidad cartesiana del efector final Robot A');
 xlabel('Muestras');
 ylabel('Velocidad [m/s]');
 legend('v_x','v_y','v_z');
+xlim([idxA(1), idxA(end)]);
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
@@ -374,6 +377,7 @@ title('Aceleración cartesiana del efector final Robot A');
 xlabel('Muestras');
 ylabel('Aceleración [m/s^2]');
 legend('a_x','a_y','a_z');
+xlim([idxA(1), idxA(end)]);
 rotate3d off; pan off; zoom off;
 
 figure;
@@ -396,6 +400,7 @@ t4.Position(2) = 1.2;
 xlabel('Muestras');
 ylabel('Coordenadas [m]');
 legend('x','y','z');
+xlim([idxB(1), idxB(end)]);
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,2);
@@ -406,6 +411,7 @@ title('Velocidad cartesiana del efector final Robot B');
 xlabel('Muestras');
 ylabel('Velocidad [m/s]');
 legend('v_x','v_y','v_z');
+xlim([idxB(1), idxB(end)]);
 rotate3d off; pan off; zoom off;
 
 subplot(3,1,3);
@@ -416,5 +422,6 @@ title('Aceleración cartesiana del efector final Robot B');
 xlabel('Muestras');
 ylabel('Aceleración [m/s^2]');
 legend('a_x','a_y','a_z');
+xlim([idxB(1), idxB(end)]);
 rotate3d off; pan off; zoom off;
 
